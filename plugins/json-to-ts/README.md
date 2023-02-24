@@ -1,6 +1,6 @@
 ## @yal-app/plugin-json-to-ts
 
-This is a plugin for Yal which converts JSON to TypeScript interfaces. It uses markdown to display the content.
+This is a plugin for Yal which converts JSON to TypeScript interfaces. It uses markdown to display the content. You can type in the keyword `json-to-ts` to trigger the plugin, and then paste in any valid JSON and it will convert it to TypeScript interfaces.
 
 ## Screenshot
 
