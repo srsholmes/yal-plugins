@@ -1,0 +1,8 @@
+node_modules
+dist
+.yal
+**/.DS_Store
+
+# All .env files
+.env
+**/.env

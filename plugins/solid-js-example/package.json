@@ -1,0 +1,11 @@
+{
+  "name": "@yal-app/plugin-solid-js-example",
+  "version": "0.0.1",
+  "description": "yal plugin",
+  "devDependencies": {
+    "@yal-app/types": "0.0.17"
+  },
+  "dependencies": {
+    "solid-js": "1.6.11"
+  }
+}

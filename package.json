@@ -1,0 +1,46 @@
+{
+  "name": "@package/plugins",
+  "version": "0.0.1",
+  "scripts": {
+    "symlink:dotfiles": "ln -s ~/.yal ",
+    "install:plugin": "run() { yarn build $1 && yarn copy:dist; }; run",
+    "install:plugins": "yarn build && yarn copy:dist",
+    "build": "npx tsx build-plugins.ts",
+    "build:watch": "npx tsx build-plugins.ts --watch",
+    "copy:dist": "cp -r ./dist/* ~/.yal/plugins/"
+  },
+  "workspaces": {
+    "packages": [
+      "plugins/*"
+    ]
+  },
+  "private": true,
+  "devDependencies": {
+    "@fal-works/esbuild-plugin-global-externals": "^2.1.2",
+    "@yal-app/types": "0.0.17",
+    "@types/node": "18.13.0",
+    "@types/prompts": "2.4.1"
+  },
+  "dependencies": {
+    "esbuild": "^0.14.38",
+    "esbuild-svelte": ">=0.5.4",
+    "esbuild-plugin-solid": "^0.1.0",
+    "prompts": "2.4.2",
+    "tsx": "3.12.1"
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "targets": {
+    "browser": {
+      "includeNodeModules": true,
+      "outputFormat": "esmodule",
+      "engines": {
+        "browsers": [
+          "> 1%",
+          "not dead"
+        ]
+      }
+    }
+  }
+}

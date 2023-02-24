@@ -1,0 +1,11 @@
+{
+  "name": "@yal-app/plugin-node-env-var-example",
+  "version": "0.0.1",
+  "description": "yal plugin",
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "@yal-app/types": "0.0.17"
+  }
+}

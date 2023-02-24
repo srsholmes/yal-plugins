@@ -1,0 +1,12 @@
+{
+  "name": "@yal-app/plugin-react-test-file",
+  "version": "0.0.1",
+  "description": "yal plugin",
+  "devDependencies": {
+    "@yal-app/types": "0.0.17"
+  },
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest"
+  }
+}
