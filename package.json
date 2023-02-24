@@ -17,7 +17,7 @@
   "private": true,
   "devDependencies": {
     "@fal-works/esbuild-plugin-global-externals": "^2.1.2",
-    "@yal-app/types": "0.0.17",
+    "@yal-app/types": "0.0.19",
     "@types/node": "18.13.0",
     "@types/prompts": "2.4.1"
   },

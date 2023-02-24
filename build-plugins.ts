@@ -23,10 +23,10 @@ const PLUGINS_SRC_DIR = './plugins/';
 function getEntryPoints({ includeSolidJS }: { includeSolidJS: boolean }) {
   // get args from command line
   const args = process.argv.slice(2);
-  console.log({ args });
+  // console.log({ args });
   const userArgs = args.filter((x) => x !== '--watch');
   const userHasSpecifiedPlugin = userArgs.length > 0;
-  console.log(userHasSpecifiedPlugin);
+  // console.log(userHasSpecifiedPlugin);
   // if there are userArgs, use them as entry points
   if (userHasSpecifiedPlugin) {
     console.log(
@@ -42,7 +42,7 @@ function getEntryPoints({ includeSolidJS }: { includeSolidJS: boolean }) {
     .filter((x) => {
       const packageJson = fs.readFileSync(x + '/package.json', 'utf8');
       const packageJsonParsed = JSON.parse(packageJson);
-      console.log(packageJsonParsed.dependencies?.['solid-js']);
+      // console.log(packageJsonParsed.dependencies?.['solid-js']);
       if (packageJsonParsed.dependencies?.['solid-js']) {
         return includeSolidJS ? true : false;
       }

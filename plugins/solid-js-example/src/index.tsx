@@ -1,7 +1,10 @@
+/** @jsxImportSource solid-js */
+
 import { YalAppPlugin, YalPluginsConfig } from '@yal-app/types';
 import { createSignal } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import logo from './images/logo.png';
+
 
 import { render } from 'solid-js/web';
 
@@ -25,7 +28,7 @@ function App() {
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() => setCount(count() + 1)}
         >
-          click
+          Click
         </button>
       </div>
     </div>
