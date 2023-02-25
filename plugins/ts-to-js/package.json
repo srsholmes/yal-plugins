@@ -1,12 +1,12 @@
 {
-  "name": "@yal-app/plugin-react-test-file",
+  "name": "@yal-app/plugin-ts-to-js",
   "version": "0.0.1",
   "description": "yal plugin",
   "devDependencies": {
     "@yal-app/types": "0.0.20"
   },
   "dependencies": {
-    "react": "latest",
-    "react-dom": "latest"
+    "solid-js": "1.6.11",
+    "remove-types": "1.0.0"
   }
 }

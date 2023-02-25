@@ -1,6 +1,6 @@
 
   {
-    "name": "@yal-app/plugin-stripe-test-cards",
+    "name": "@yal-app/plugin-markdown-example",
     "version": "0.0.1",
     "description": "yal plugin",
     "devDependencies": {

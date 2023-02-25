@@ -6,6 +6,6 @@
     "tsx": "3.12.3"
   },
   "devDependencies": {
-    "@yal-app/types": "0.0.17"
+    "@yal-app/types": "0.0.20"
   }
 }

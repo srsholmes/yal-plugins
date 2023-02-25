@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "yal plugin",
   "devDependencies": {
-    "@yal-app/types": "0.0.17"
+    "@yal-app/types": "0.0.20"
   },
   "dependencies": {
     "solid-js": "1.6.11"

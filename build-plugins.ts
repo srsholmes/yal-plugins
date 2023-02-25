@@ -23,10 +23,10 @@ const PLUGINS_SRC_DIR = './plugins/';
 function getEntryPoints({ includeSolidJS }: { includeSolidJS: boolean }) {
   // get args from command line
   const args = process.argv.slice(2);
-  console.log({ args });
+  // console.log({ args });
   const userArgs = args.filter((x) => x !== '--watch');
   const userHasSpecifiedPlugin = userArgs.length > 0;
-  console.log(userHasSpecifiedPlugin);
+  // console.log(userHasSpecifiedPlugin);
   // if there are userArgs, use them as entry points
   if (userHasSpecifiedPlugin) {
     console.log(
@@ -42,7 +42,7 @@ function getEntryPoints({ includeSolidJS }: { includeSolidJS: boolean }) {
     .filter((x) => {
       const packageJson = fs.readFileSync(x + '/package.json', 'utf8');
       const packageJsonParsed = JSON.parse(packageJson);
-      console.log(packageJsonParsed.dependencies?.['solid-js']);
+      // console.log(packageJsonParsed.dependencies?.['solid-js']);
       if (packageJsonParsed.dependencies?.['solid-js']) {
         return includeSolidJS ? true : false;
       }
@@ -50,7 +50,7 @@ function getEntryPoints({ includeSolidJS }: { includeSolidJS: boolean }) {
     })
     .map((path) => {
       const contents = fs.readdirSync(path + '/src');
-      console.log({ contents });
+      // console.log({ contents });
       if (contents.includes('index.js')) {
         return path + '/src/index.js';
       }
@@ -63,7 +63,9 @@ function getEntryPoints({ includeSolidJS }: { includeSolidJS: boolean }) {
       if (contents.includes('index.jsx')) {
         return path + '/src/index.jsx';
       }
-      console.log('No index.js or index.ts or index.jsx or index.tsx found in ' + path);
+      console.log(
+        'No index.js or index.ts or index.jsx or index.tsx found in ' + path
+      );
     });
 
   console.log({ arr });
@@ -91,9 +93,11 @@ async function build({
         '.png': 'dataurl',
         '.jpg': 'dataurl',
         '.svg': 'dataurl',
+        // '.js': 'jsx',
+        // '.ts': 'tsx',
       },
       sourcemap: 'external',
-      plugins: includeSolidJS ? [solidPlugin({ })] : [],
+      plugins: includeSolidJS ? [solidPlugin()] : [],
       watch:
         //  if args contain --watch
         process.argv.includes('--watch')
