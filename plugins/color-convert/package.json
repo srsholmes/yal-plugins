@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "yal plugin",
   "devDependencies": {
-    "@yal-app/types": "0.0.19"
+    "@yal-app/types": "0.0.20"
   },
   "dependencies": {
     "color": "4.2.3"

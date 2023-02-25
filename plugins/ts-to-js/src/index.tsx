@@ -1,12 +1,11 @@
 import { YalAppPlugin, YalPluginsConfig } from '@yal-app/types';
-import { createSignal } from 'solid-js';
+import { createEffect, createSignal } from 'solid-js';
 import { render } from 'solid-js/web';
 import { setState } from './state';
 
 let pluginPath = '';
 
 async function compileCode(code: string) {
-  console.log('compiling code', pluginPath);
   const res = await yal.shell.run({
     binary: 'tsx',
     args: [pluginPath, code],
@@ -15,20 +14,32 @@ async function compileCode(code: string) {
 }
 
 function App() {
-  const [code, setCode] = createSignal(null);
+  const [code, setCode] = createSignal("const hello = () => 'hello';");
+  const [highlightedCode, setHighlightedCode] = createSignal(null);
 
   async function handleInput(e) {
-    const compiled = await compileCode(e.target.value);
-    setCode(compiled);
+    console.log('WWWWWWWWWWW');
+    console.log(e);
+    setCode(e.target.innerText);
   }
 
+  createEffect(async () => {
+    const res = await compileCode(code());
+    const html = window.yal.Prism.highlight(
+      res,
+      window.yal.Prism.languages.js,
+      'javascript'
+    );
+    setHighlightedCode(html);
+  });
+
   return (
-    <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 text-white">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl mb-10">
+    <div class="mx-auto text-white px-10">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight text-white sm:text-6xl mb-10">
           Convert TS to JS
         </h1>
-        <div class="grid grid-cols-2">
+        <div class="grid grid-cols-2 gap-4">
           <div>
             <label
               for="message"
@@ -36,16 +47,13 @@ function App() {
             >
               TypeScript:
             </label>
-            <textarea
-              onInput={handleInput}
-              autocorrect="off"
-              spellcheck={false}
-              autocomplete="off"
-              id="message"
-              rows="4"
-              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Paste your TypeScript code here..."
-            ></textarea>
+            <pre>
+              <code
+                class="language-typescript"
+                innerHTML={code()}
+                contentEditable
+              ></code>
+            </pre>
           </div>
           <div>
             <label
@@ -54,8 +62,13 @@ function App() {
             >
               JavaScript:
             </label>
-            <div class="prose">
-              <code>{code()}</code>
+            <div class="block overflow-x-auto p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <pre>
+                <code
+                  class="language-javascript"
+                  innerHTML={highlightedCode()}
+                ></code>
+              </pre>
             </div>
           </div>
         </div>
@@ -77,7 +90,7 @@ const testSolidApp: YalAppPlugin = (args) => {
 };
 
 export const config: YalPluginsConfig = {
-  keywords: 'copy',
+  keywords: 'convert',
   filter: false,
   isApp: true,
 };

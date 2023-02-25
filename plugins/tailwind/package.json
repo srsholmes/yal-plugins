@@ -5,7 +5,7 @@
     "description": "yal plugin",
 
     "devDependencies": {
-      "@yal-app/types": "0.0.19"
+      "@yal-app/types": "0.0.20"
     }
   }
   
