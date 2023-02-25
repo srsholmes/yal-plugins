@@ -14,23 +14,37 @@ async function compileCode(code: string) {
 }
 
 function App() {
-  const [code, setCode] = createSignal("const hello = () => 'hello';");
-  const [highlightedCode, setHighlightedCode] = createSignal(null);
+  const [code, setCode] = createSignal("const hello = (a: number) => 'hello';");
+  const [highlightedJSCode, setHighlightedJSCode] = createSignal(null);
+  const [highlightedTSCode, setHighlightedTSCode] = createSignal(null);
 
+  let tsCodeDiv;
   async function handleInput(e) {
-    console.log('WWWWWWWWWWW');
-    console.log(e);
+    console.log('e', e);
     setCode(e.target.innerText);
+    // tsCodeDiv.innerText = e.target.innerText;
+    // Syntax Highlight
+    window.yal.Prism.highlightElement(tsCodeDiv);
   }
+
+  // createEffect(() => {
+  //   const TShtml = window.yal.Prism.highlight(
+  //     code(),
+  //     window.yal.Prism.languages.js,
+  //     'javascript'
+  //   );
+  //   setHighlightedTSCode(TShtml);
+  // });
 
   createEffect(async () => {
     const res = await compileCode(code());
-    const html = window.yal.Prism.highlight(
+    const JShtml = window.yal.Prism.highlight(
       res,
       window.yal.Prism.languages.js,
       'javascript'
     );
-    setHighlightedCode(html);
+
+    setHighlightedJSCode(JShtml);
   });
 
   return (
@@ -47,13 +61,17 @@ function App() {
             >
               TypeScript:
             </label>
-            <pre>
-              <code
-                class="language-typescript"
-                innerHTML={code()}
+            <div class="relative">
+              <pre
+                onInput={handleInput}
                 contentEditable
-              ></code>
-            </pre>
+                // ref={tsCodeDiv}
+                aria-hidden="true"
+                class="z-10 absolute top-0 left-0 h-[400px] w-full"
+              >
+                <code ref={tsCodeDiv} class="language-typescript">{code()}</code>
+              </pre>
+            </div>
           </div>
           <div>
             <label
@@ -66,7 +84,7 @@ function App() {
               <pre>
                 <code
                   class="language-javascript"
-                  innerHTML={highlightedCode()}
+                  innerHTML={highlightedJSCode()}
                 ></code>
               </pre>
             </div>
