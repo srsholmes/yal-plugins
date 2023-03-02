@@ -2,7 +2,7 @@ import fs from 'fs';
 import esbuild from 'esbuild';
 import path from 'path';
 import { mkdir, readdir, copyFile } from 'fs/promises';
-const { solidPlugin } = require('esbuild-plugin-solid');
+import { solidPlugin } from 'esbuild-plugin-solid';
 
 const home = require('os').homedir();
 
@@ -14,9 +14,15 @@ if (fs.existsSync(PLUGINS_INSTALL_DIR)) {
   fs.mkdirSync(PLUGINS_INSTALL_DIR);
 }
 
-if (!fs.existsSync('./dist/')) {
+// remove the dist dir and remake it
+if (fs.existsSync('./dist/')) {
+  fs.rmdirSync('./dist/', { recursive: true });
   fs.mkdirSync('./dist/');
 }
+
+// if (!fs.existsSync('./dist/')) {
+//   fs.mkdirSync('./dist/');
+// }
 
 const PLUGINS_SRC_DIR = './plugins/';
 
@@ -79,6 +85,7 @@ async function build({
   pluginFiles: string[];
   includeSolidJS: boolean;
 }) {
+  console.log({ includeSolidJS});
   return esbuild
     .build({
       entryPoints: pluginFiles,
@@ -93,8 +100,10 @@ async function build({
         '.png': 'dataurl',
         '.jpg': 'dataurl',
         '.svg': 'dataurl',
-        // '.js': 'jsx',
-        // '.ts': 'tsx',
+        '.js': 'jsx',
+        '.ts': 'tsx',
+        '.tsx': 'tsx',
+        '.jsx': 'jsx',
       },
       sourcemap: 'external',
       plugins: includeSolidJS ? [solidPlugin()] : [],

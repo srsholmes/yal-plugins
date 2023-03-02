@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "solid-js": "1.6.11",
-    "remove-types": "1.0.0"
+    "remove-types": "1.0.0",
+    "@srsholmes/solid-code-input": "0.0.16"
   }
 }

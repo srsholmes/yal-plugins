@@ -1,7 +1,9 @@
+import { CodeInput } from '@srsholmes/solid-code-input';
 import { YalAppPlugin, YalPluginsConfig } from '@yal-app/types';
-import { createEffect, createSignal } from 'solid-js';
+import { createSignal, onMount, Show } from 'solid-js';
 import { render } from 'solid-js/web';
 import { setState } from './state';
+import('prismjs/components/prism-typescript');
 
 let pluginPath = '';
 
@@ -15,36 +17,19 @@ async function compileCode(code: string) {
 
 function App() {
   const [code, setCode] = createSignal("const hello = (a: number) => 'hello';");
-  const [highlightedJSCode, setHighlightedJSCode] = createSignal(null);
-  const [highlightedTSCode, setHighlightedTSCode] = createSignal(null);
+  const [compiledCode, setCompiledCode] = createSignal(null);
+  const [show, setShow] = createSignal(false);
 
-  let tsCodeDiv;
-  async function handleInput(e) {
-    console.log('e', e);
-    setCode(e.target.innerText);
-    // tsCodeDiv.innerText = e.target.innerText;
-    // Syntax Highlight
-    window.yal.Prism.highlightElement(tsCodeDiv);
+  async function onChange(val) {
+    setCode(val);
+    const res = await compileCode(code());
+    setCompiledCode(res);
   }
 
-  // createEffect(() => {
-  //   const TShtml = window.yal.Prism.highlight(
-  //     code(),
-  //     window.yal.Prism.languages.js,
-  //     'javascript'
-  //   );
-  //   setHighlightedTSCode(TShtml);
-  // });
-
-  createEffect(async () => {
-    const res = await compileCode(code());
-    const JShtml = window.yal.Prism.highlight(
-      res,
-      window.yal.Prism.languages.js,
-      'javascript'
-    );
-
-    setHighlightedJSCode(JShtml);
+  onMount(() => {
+    setTimeout(() => {
+      setShow(true);
+    }, 2000);
   });
 
   return (
@@ -54,39 +39,42 @@ function App() {
           Convert TS to JS
         </h1>
         <div class="grid grid-cols-2 gap-4">
-          <div>
+          <div class="pb-10">
             <label
               for="message"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
             >
               TypeScript:
             </label>
-            <div class="relative">
-              <pre
-                onInput={handleInput}
-                contentEditable
-                // ref={tsCodeDiv}
-                aria-hidden="true"
-                class="z-10 absolute top-0 left-0 h-[400px] w-full"
-              >
-                <code ref={tsCodeDiv} class="language-typescript">{code()}</code>
-              </pre>
+            <div class="all-inherit">
+              <Show when={show()}>
+                <CodeInput
+                  resize="both"
+                  prismJS={window.yal.Prism}
+                  onChange={onChange}
+                  value={code()}
+                  language="typescript"
+                />
+              </Show>
             </div>
           </div>
-          <div>
+          <div class="pb-10">
             <label
               for="compiled"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
             >
               JavaScript:
             </label>
-            <div class="block overflow-x-auto p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <pre>
-                <code
-                  class="language-javascript"
-                  innerHTML={highlightedJSCode()}
-                ></code>
-              </pre>
+            <div class="all-inherit">
+              <Show when={show()}>
+                <CodeInput
+                  resize="both"
+                  prismJS={window.yal.Prism}
+                  onChange={() => {}}
+                  value={compiledCode()}
+                  language="javascript"
+                />
+              </Show>
             </div>
           </div>
         </div>

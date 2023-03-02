@@ -18,7 +18,7 @@ const testReactApp: YalAppPlugin = (args) => {
 };
 
 export const config: YalPluginsConfig = {
-  keywords: 'pokemon',
+  keywords: 'react-pokemon',
   filter: false,
   isApp: true,
   debounce: true,

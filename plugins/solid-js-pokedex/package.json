@@ -1,0 +1,15 @@
+{
+  "name": "@yal-app/plugin-solid-js-pokedex",
+  "version": "0.0.1",
+  "description": "yal plugin",
+  "devDependencies": {
+    "@yal-app/types": "0.0.20"
+  },
+  "dependencies": {
+    "solid-js": "1.6.11",
+    "@tanstack/solid-query": "4.24.10",
+    "pokeapi-typescript": "^2.1.0",
+    "solid-icons": "^1.0.4",
+    "tailwindcss": "^3.0.24"
+  }
+}
