@@ -72,6 +72,7 @@ function App() {
             <div class="all-inherit">
               <Show when={show()}>
                 <CodeInput
+                  autoHeight={true}
                   resize="both"
                   prismJS={window.yal.Prism}
                   onChange={onChange}

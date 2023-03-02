@@ -513,10 +513,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@srsholmes/solid-code-input@0.0.16":
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/@srsholmes/solid-code-input/-/solid-code-input-0.0.16.tgz#d309016ba1a3d79e7bbf773dbae62bd1130e7b8f"
-  integrity sha512-E7CgXhAibxjjENbUPav0m9KutZOvOtcEe/qTFqxchMM9Esoz/hN2Ae/dX5lbNhSFNsiYxTUZL2rddybpEZBf/g==
+"@srsholmes/solid-code-input@0.0.17":
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/@srsholmes/solid-code-input/-/solid-code-input-0.0.17.tgz#c56d720438b97356df63ad393b6c2e8c22754da1"
+  integrity sha512-k2KEg1EewL1o7YolCALnnMLOGttoj4raIsErNO43OuffJI4p/qrwEgo5H2aG//gpfvwAuDUO58nrj4IYx9hw2g==
 
 "@tanstack/query-core@4.24.10":
   version "4.24.10"
