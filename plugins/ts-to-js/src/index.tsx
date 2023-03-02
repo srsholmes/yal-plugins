@@ -15,8 +15,31 @@ async function compileCode(code: string) {
   return res.stdout;
 }
 
+const exampleCode = `import { render } from 'solid-js/web';
+import { createSignal, createEffect } from 'solid-js';
+import Prism from 'prismjs';
+import { CodeInput } from '@srsholmes/solid-code-input';
+
 function App() {
-  const [code, setCode] = createSignal("const hello = (a: number) => 'hello';");
+  const [input, setInput] = createSignal('');
+
+  return (
+    <CodeInput
+      placeholder="Input your code here..."
+      prismJS={Prism}
+      onChange={setInput}
+      language={'jsx'}
+      autoHeight={true}
+      resize="both"
+      value={input}
+    />
+  );
+}
+
+render(() => <App />, document.getElementById('app'));`;
+
+function App() {
+  const [code, setCode] = createSignal(exampleCode);
   const [compiledCode, setCompiledCode] = createSignal(null);
   const [show, setShow] = createSignal(false);
 
