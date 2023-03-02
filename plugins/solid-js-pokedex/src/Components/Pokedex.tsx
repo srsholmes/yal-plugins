@@ -3,11 +3,13 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/solid-query';
+import { PluginArgs } from '@yal-app/types';
 import type { IPokemon } from 'pokeapi-typescript';
 import { For, Index } from 'solid-js';
 import { setText, text } from '../state';
 
-const Pokedex = () => {
+const Pokedex = (props: { utils: PluginArgs['utils'] }) => {
+  console.log('Pokedex', { props });
   const query = createQuery(
     () => ['pokemon', text()],
     () =>
@@ -18,12 +20,16 @@ const Pokedex = () => {
 
   return (
     <div class="flex justify-center">
-      <Pokemon pokemon={query.data} />
+      <Pokemon utils={props.utils} pokemon={query.data} />
     </div>
   );
 };
 
-function Pokemon(props: { pokemon: IPokemon | undefined }) {
+function Pokemon(props: {
+  pokemon: IPokemon | undefined;
+  utils: PluginArgs['utils'];
+}) {
+  console.log({ props });
   const properCase = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
@@ -38,7 +44,9 @@ function Pokemon(props: { pokemon: IPokemon | undefined }) {
         <div class="h-12 mt-2 justify-between flex items-center">
           <button
             onClick={() => {
-              setText((prev) => (Number(prev) - 1).toString());
+              props.utils.setInputText(
+                `pokemon ${(Number(text()) - 1).toString()}`
+              );
             }}
             class="h-12 w-12 flex justify-center items-center text-neutral-600 hover:text-neutral-500"
           >
@@ -66,7 +74,9 @@ function Pokemon(props: { pokemon: IPokemon | undefined }) {
           </h1>
           <button
             onClick={() => {
-              setText((prev) => (Number(prev) + 1).toString());
+              props.utils.setInputText(
+                `pokemon ${(Number(text()) + 1).toString()}`
+              );
             }}
             class="h-12 w-12 flex justify-center items-center text-neutral-600 hover:text-neutral-500"
           >
@@ -168,10 +178,10 @@ function Pokemon(props: { pokemon: IPokemon | undefined }) {
   );
 }
 
-export default function PokedexProvider() {
+export default function PokedexProvider(props: { utils: PluginArgs['utils'] }) {
   return (
     <QueryClientProvider client={new QueryClient()}>
-      <Pokedex />
+      <Pokedex utils={props.utils} />
     </QueryClientProvider>
   );
 }
