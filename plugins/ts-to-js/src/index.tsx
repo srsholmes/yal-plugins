@@ -1,6 +1,6 @@
 import { CodeInput } from '@srsholmes/solid-code-input';
 import { YalAppPlugin, YalPluginsConfig } from '@yal-app/types';
-import { createSignal, onMount, Show } from 'solid-js';
+import { createSignal, onMount } from 'solid-js';
 import { render } from 'solid-js/web';
 import { setState } from './state';
 import('prismjs/components/prism-typescript');
@@ -15,45 +15,15 @@ async function compileCode(code: string) {
   return res.stdout;
 }
 
-const exampleCode = `import { render } from 'solid-js/web';
-import { createSignal, createEffect } from 'solid-js';
-import Prism from 'prismjs';
-import { CodeInput } from '@srsholmes/solid-code-input';
-
 function App() {
-  const [input, setInput] = createSignal('');
-
-  return (
-    <CodeInput
-      placeholder="Input your code here..."
-      prismJS={Prism}
-      onChange={setInput}
-      language={'jsx'}
-      autoHeight={true}
-      resize="both"
-      value={input}
-    />
-  );
-}
-
-render(() => <App />, document.getElementById('app'));`;
-
-function App() {
-  const [code, setCode] = createSignal(exampleCode);
+  const [code, setCode] = createSignal("const hello = (a: number) => 'hello';");
   const [compiledCode, setCompiledCode] = createSignal(null);
-  const [show, setShow] = createSignal(false);
 
   async function onChange(val) {
     setCode(val);
     const res = await compileCode(code());
     setCompiledCode(res);
   }
-
-  onMount(() => {
-    setTimeout(() => {
-      setShow(true);
-    }, 2000);
-  });
 
   return (
     <div class="mx-auto text-white px-10">
@@ -69,18 +39,15 @@ function App() {
             >
               TypeScript:
             </label>
-            <div class="all-inherit">
-              <Show when={show()}>
-                <CodeInput
-                  autoHeight={true}
-                  resize="both"
-                  prismJS={window.yal.Prism}
-                  onChange={onChange}
-                  value={code()}
-                  language="typescript"
-                />
-              </Show>
-            </div>
+
+            <CodeInput
+              autoHeight={true}
+              resize="none"
+              prismJS={window.yal.Prism}
+              onChange={onChange}
+              value={code()}
+              language="typescript"
+            />
           </div>
           <div class="pb-10">
             <label
@@ -89,17 +56,15 @@ function App() {
             >
               JavaScript:
             </label>
-            <div class="all-inherit">
-              <Show when={show()}>
-                <CodeInput
-                  resize="both"
-                  prismJS={window.yal.Prism}
-                  onChange={() => {}}
-                  value={compiledCode()}
-                  language="javascript"
-                />
-              </Show>
-            </div>
+
+            <CodeInput
+              autoHeight={true}
+              resize="none"
+              prismJS={window.yal.Prism}
+              onChange={() => {}}
+              value={compiledCode()}
+              language="javascript"
+            />
           </div>
         </div>
       </div>
