@@ -1,6 +1,6 @@
 ## @yal-app/plugin-svelte-example
 
-This is a plugin for Yal which displays a list of Stripe test cards. Select the card you want to copy and it will be copied to your clipboard.
+This is a plugin for Yal which displays an exmaple of writing a plugin using svelte.
 
 ## Screenshot
 
