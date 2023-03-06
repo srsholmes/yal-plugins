@@ -2,8 +2,6 @@ import { YalAppPlugin, YalPluginsConfig } from '@yal-app/types';
 import Test from './index.svelte';
 import { state } from './state';
 
-let val = '';
-
 export const svelteExamplePlugin: YalAppPlugin = (args) => {
   const { appNode } = args;
   state.set(args.text);
