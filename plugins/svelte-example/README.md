@@ -1,6 +1,6 @@
 ## @yal-app/plugin-svelte-example
 
-This is a plugin for Yal which displays an exmaple of writing a plugin using svelte.
+This is a plugin for Yal which displays an example of writing a plugin using svelte.
 
 ## Screenshot
 
