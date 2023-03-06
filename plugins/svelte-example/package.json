@@ -1,0 +1,16 @@
+{
+  "name": "@yal-app/plugin-svelte-example",
+  "version": "0.0.1",
+  "description": "yal plugin",
+  "devDependencies": {
+    "@yal-app/types": "0.0.20"
+  },
+  "dependencies": {
+    "@tsconfig/svelte": "^3.0.0",
+    "svelte": "^3.48.0",
+    "svelte-check": "^2.7.2",
+    "svelte-preprocess": "^4.10.7",
+    "typescript": "^4.7.3"
+  },
+  "private": true
+}

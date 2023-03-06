@@ -1,8 +1,10 @@
-import fs from 'fs';
 import esbuild from 'esbuild';
-import path from 'path';
-import { mkdir, readdir, copyFile } from 'fs/promises';
 import { solidPlugin } from 'esbuild-plugin-solid';
+import esbuildSvelte from 'esbuild-svelte';
+import fs from 'fs';
+import { copyFile, mkdir, readdir } from 'fs/promises';
+import path from 'path';
+import sveltePreprocess from 'svelte-preprocess';
 
 const home = require('os').homedir();
 
@@ -81,11 +83,27 @@ function getEntryPoints({ includeSolidJS }: { includeSolidJS: boolean }) {
 async function build({
   pluginFiles,
   includeSolidJS,
+  includeSvelte,
 }: {
   pluginFiles: string[];
   includeSolidJS: boolean;
+  includeSvelte: boolean;
 }) {
-  console.log({ includeSolidJS});
+  function getPlugins() {
+    if (includeSolidJS) {
+      return [solidPlugin()];
+    }
+    if (includeSvelte) {
+      return [
+        esbuildSvelte({
+          preprocess: sveltePreprocess(),
+        }),
+      ];
+    }
+    return [];
+  }
+
+  console.log({ includeSolidJS, includeSvelte });
   return esbuild
     .build({
       entryPoints: pluginFiles,
@@ -106,7 +124,7 @@ async function build({
         '.jsx': 'jsx',
       },
       sourcemap: 'external',
-      plugins: includeSolidJS ? [solidPlugin()] : [],
+      plugins: getPlugins(),
       watch:
         //  if args contain --watch
         process.argv.includes('--watch')
@@ -134,11 +152,15 @@ async function build({
   console.log('Building plugins...');
   const pluginFiles = getEntryPoints({ includeSolidJS: false });
   console.log('pluginFiles (No SolidJS dependency)', pluginFiles);
-  await build({ pluginFiles, includeSolidJS: false });
+  await build({ pluginFiles, includeSolidJS: false, includeSvelte: true });
   console.log('Plugins compiled (no SolidJS) 🎉');
   const pluginFilesWithSolidJS = getEntryPoints({ includeSolidJS: true });
   console.log('pluginFiles (SolidJS dependencies)', pluginFilesWithSolidJS);
-  await build({ pluginFiles: pluginFilesWithSolidJS, includeSolidJS: true });
+  await build({
+    pluginFiles: pluginFilesWithSolidJS,
+    includeSolidJS: true,
+    includeSvelte: false,
+  });
   console.log('SolidJS Plugins compiled 🎉');
   await copyDir(PLUGINS_SRC_DIR, './dist/');
   console.log('Other files copied 🎉');
