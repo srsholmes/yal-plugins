@@ -1,23 +1,22 @@
 import { PluginArgs, YalAppPlugin, YalPluginsConfig } from '@yal-app/types';
 import { render } from 'solid-js/web';
 import Pokedex from './Components/Pokedex';
-import { setText } from './state';
+import { setText, setUtils } from './state';
 
-function App(props: { utils: PluginArgs['utils'] }) {
-  return (
-    <div class="mx-auto max-w-2xl py-10">
-      <Pokedex utils={props.utils} />
-    </div>
-  );
-}
+window.yal.WebFont.load({
+  google: {
+    families: ['Ultra'],
+  },
+});
 
-const testSolidApp: YalAppPlugin = (args) => {
+const solidPokedexApp: YalAppPlugin = (args) => {
   const { appNode } = args;
   if (args.text !== '') {
     setText(args.text);
+    setUtils(args.utils);
   }
   if (appNode.children.length === 0) {
-    render(() => <App utils={args.utils} />, appNode);
+    render(() => <Pokedex />, appNode);
   }
   return { appNode };
 };
@@ -26,7 +25,8 @@ export const config: YalPluginsConfig = {
   keywords: 'pokemon',
   filter: false,
   debounce: true,
+  keepOpen: true,
   isApp: true,
 };
 
-export default testSolidApp;
+export default solidPokedexApp;

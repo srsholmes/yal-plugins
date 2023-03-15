@@ -3,13 +3,14 @@
   "version": "0.0.1",
   "description": "yal plugin",
   "devDependencies": {
-    "@yal-app/types": "0.0.20"
+    "@yal-app/types": "0.0.21"
   },
   "dependencies": {
     "solid-js": "1.6.11",
-    "@tanstack/solid-query": "4.24.10",
+    "@tanstack/solid-query": "5.0.0-alpha.0",
     "pokeapi-typescript": "^2.1.0",
     "solid-icons": "^1.0.4",
-    "tailwindcss": "^3.0.24"
+    "tailwindcss": "^3.0.24",
+    "colorthief": "^2.4.0"
   }
 }

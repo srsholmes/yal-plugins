@@ -15,6 +15,7 @@ yarn install:plugin chrome-tabs
 ```
 
 ## ScriptKit
+
 The plugin uses applescript which is taken directly from https://github.com/johnlindquist/kit/blob/main/src/lib/browser.ts.
 
 Check out https://www.scriptkit.com/. It's a great app!

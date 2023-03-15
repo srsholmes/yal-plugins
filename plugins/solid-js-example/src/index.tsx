@@ -5,7 +5,6 @@ import { createSignal } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import logo from './images/logo.png';
 
-
 import { render } from 'solid-js/web';
 
 function App() {
@@ -36,7 +35,6 @@ function App() {
 }
 
 const [state, setState] = createStore({ text: 'hello world' });
-
 
 const testSolidApp: YalAppPlugin = (args) => {
   const { appNode } = args;

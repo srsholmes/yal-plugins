@@ -8,7 +8,7 @@ export const plugin: YalPlugin = (args) => {
         name: 'This is the first result',
         description: 'This is the first result description',
         metadata: {
-          another: 'https://yal.app',
+          another: 'https://github.com/srsholmes/yal/',
           toto: 11234,
         },
       },
@@ -16,7 +16,7 @@ export const plugin: YalPlugin = (args) => {
         name: 'This is the second result',
         description: 'This is the second result description',
         metadata: {
-          url: 'https://yal.app',
+          url: 'https://github.com/srsholmes/yal/',
           toto: 11234,
         },
       },

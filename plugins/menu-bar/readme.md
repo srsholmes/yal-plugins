@@ -15,4 +15,5 @@ yarn install:plugin menu-bar
 ```
 
 ## Alfred Menu Bar Plugin
+
 The Binary for this plugin is a fork from the great work done over here [Menu Bar Search - An Alfred Workflow](https://github.com/BenziAhamed/Menu-Bar-Search).

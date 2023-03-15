@@ -2,7 +2,7 @@
 
 This is a plugin for Yal which allows you to search many different websites at once. You can search for a term and it will allow you to select which website you want to search on. There is a huge list of websites that you can search on, so I suggest filtering them to only the sites you use.
 
-To enable a site to search on set the 
+To enable a site to search on set the
 
 ```
 metadata: {

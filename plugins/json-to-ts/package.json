@@ -1,11 +1,9 @@
-
-  {
-    "name": "@yal-app/plugin-json-to-ts",
-    "version": "0.0.1",
-    "description": "yal plugin",
-    "devDependencies": {
-      "@yal-app/types": "0.0.20",
-      "json-to-ts": "1.7.0"
-    }
+{
+  "name": "@yal-app/plugin-json-to-ts",
+  "version": "0.0.1",
+  "description": "yal plugin",
+  "devDependencies": {
+    "@yal-app/types": "0.0.21",
+    "json-to-ts": "1.7.0"
   }
-  
+}

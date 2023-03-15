@@ -34,7 +34,6 @@ function App() {
 
 const [state, setState] = createStore({ text: 'hello world' });
 
-
 const testSolidApp: YalAppPlugin = (args) => {
   const { appNode } = args;
   setState({ text: args.text });

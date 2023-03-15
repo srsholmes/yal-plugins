@@ -1,10 +1,8 @@
-
-  {
-    "name": "@yal-app/plugin-mac-os-simulator",
-    "version": "0.0.1",
-    "description": "yal plugin",
-    "devDependencies": {
-      "@yal-app/types": "0.0.20"
-    }
+{
+  "name": "@yal-app/plugin-mac-os-simulator",
+  "version": "0.0.1",
+  "description": "yal plugin",
+  "devDependencies": {
+    "@yal-app/types": "0.0.21"
   }
-  
+}

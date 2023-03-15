@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "yal plugin",
   "devDependencies": {
-    "@yal-app/types": "0.0.20"
+    "@yal-app/types": "0.0.21"
   },
   "dependencies": {
     "sugar": "2.0.6"
