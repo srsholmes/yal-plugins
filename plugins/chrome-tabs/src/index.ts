@@ -35,8 +35,9 @@ tell application "${browser}"
 end tell
 `;
 
-const getTabsCmd = (browser = 'Google Chrome') => String.raw`
-    on findAndReplaceInText(theText, theSearchString, theReplacementString)
+const getTabsCmd = (
+  browser = 'Google Chrome'
+) => String.raw`on findAndReplaceInText(theText, theSearchString, theReplacementString)
 	set AppleScript's text item delimiters to theSearchString
 	set theTextItems to every text item of theText
 	set AppleScript's text item delimiters to theReplacementString
@@ -46,8 +47,8 @@ const getTabsCmd = (browser = 'Google Chrome') => String.raw`
 end findAndReplaceInText
 
 script V
-	property Ps : missing value
-	property Ws : missing value
+	property Ps : null
+	property Ws : null
 	property JSON : ""
 	property Object : ""
 	
@@ -56,8 +57,11 @@ script V
 	end finalizeJSON
 	
 	to addPair(key, value)
-		set escapedValue to findAndReplaceInText(value, "\"", "\\\"")
-		set Object to Object & ("\"" & key & "\":\"" & escapedValue) & "\","
+		if key = "html" then
+			set Object to Object & ("\"" & key & "\":" & value & ",")
+		else
+			set Object to Object & ("\"" & key & "\":\"" & value & "\",")
+		end if
 	end addPair
 	
 	to finalizeObject()
@@ -69,28 +73,29 @@ end script
 
 set tabData to ""
 
-tell application "${browser}"
+tell application "Google Chrome"
 	set window_list to every window # get the windows
 	
 	repeat with the_window in window_list # for every window
 		set tab_list to every tab in the_window # get the tabs
 		
 		repeat with the_tab in tab_list # for every tab
-			
-			-- set the_url to the URL of the_tab # grab the URL
-			V's addPair("url", the URL of the_tab)
-			-- set the_title to the title of the_tab # grab the title
-			V's addPair("title", the title of the_tab)
-			V's finalizeObject()
-			
+			try
+				# execute JavaScript to retrieve HTML content of tab
+				tell the_tab to set currentTabSource to execute javascript "JSON.stringify(document.body.innerText)"
+				# set the_url to the URL of the_tab # grab the URL
+				V's addPair("url", the URL of the_tab)
+				# set the_title to the title of_the_tab # grab the title
+				V's addPair("title", the title of the_tab)
+				V's addPair("html", currentTabSource)
+				V's finalizeObject()
+			end try
 		end repeat
 	end repeat
 	V's finalizeJSON()
 end tell
 
-get V's JSON
-
-    `;
+get V's JSON`;
 
 const action: Action = async (result) => {
   await yal.shell.appleScript({
@@ -106,6 +111,9 @@ const chromeTabs: YalPlugin = async (args) => {
     '-e',
     getTabsCmd(),
   ]).execute();
+  console.log('********');
+  console.log(res.stdout);
+  console.log('********');
   args.setState({
     heading: `tabs`,
     action,
