@@ -111,9 +111,6 @@ const chromeTabs: YalPlugin = async (args) => {
     '-e',
     getTabsCmd(),
   ]).execute();
-  console.log('********');
-  console.log(res.stdout);
-  console.log('********');
   args.setState({
     heading: `tabs`,
     action,
